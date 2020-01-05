@@ -10,7 +10,46 @@
 </head>
 
 <body>
+  <div id="app">
+    <div>
+      {{ message }}
+    </div>
+    <div id="title_bind">
+      <span v-bind:title="mouseMessage">鼠标悬停几秒查看 title</span>
+    </div>
+    <div id="now_See">
+      <span v-if="seen"> 现在你看到我了</span>
+    </div>
+    <ol>
+      <li v-for="name in names">
+        {{name}}
+      </li>
+    </ol>
+    <button v-on:click="reverseMessage">点击逆转</button>
+    <input type="text" v-model="message">
 
+    <!-- 可复用的小组件 -->
+  </div>
 </body>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: "hello vue!",
+      mouseMessage: "你好",
+      names: ['xiaoli', 'xiaodong', 'xiaozhang'],
+      seen: true
+    },
+    methods: {
+      reverseMessage() {
+        alert(1)
+        this.message.split('').reverse().join('')
+      }
+    }
+  })
+</script>
 
 </html>
+
+<!-- vue 是一个函数，我们新建了一个实例后并传入一个对象，el 是为实例提供挂载对象。
+本页的示例分别绑定到dom 文本、属性上、dom 结构 -->
