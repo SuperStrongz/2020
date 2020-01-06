@@ -11,14 +11,36 @@
 
 <body>
   <div id="app">
-    <p :class="{active : isActive}"></p>
+    <p :class="{'active' : isActive, 'text-danger': hasError}">111</p>
+    <p :class="setClass">2</p>
+    <p v-if="certainShow">2222</p>
+    <p v-else>333</p>
+    <p v-show="ok">777</p>
+    <ul>
+      <li v-for="value in items">
+        {{value.message}}
+      </li>
+    </ul>
   </div>
 </body>
 <script>
   new Vue({
     el: '#app',
     data: {
-
+      isActive: true,
+      ok: true,
+      certainShow: true,
+      hasError: true,
+      setClass: {
+        show: true,
+      },
+      items: [{
+          message: 'Foo'
+        },
+        {
+          message: 'Bar'
+        }
+      ]
     }
   })
 </script>
