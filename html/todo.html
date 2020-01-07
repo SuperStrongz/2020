@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="todoContainer">
+    <form @submit.prevent="addToDo">
+      <label for="todo">增加便签</label>
+      <input id="todo" type="text" placeholder="输入内容" v-model="content">
+      <button>add</button>
+    </form>
+    <ol>
+      <li is="todo-item" v-for="(item, index) in contentList" :key="item.id" :title="item.title"
+        @remove="contentList.splice(index, 1)">
+      </li>
+    </ol>
+  </div>
+</body>
+<script>
+  Vue.component("todo-item", {
+    props: ['title'],
+    template: `
+    <li>
+      {{title}}
+      <button @click="$emit('remove')">删除</button>
+      </li>
+    `
+  })
+  var container = new Vue({
+    el: "#todoContainer",
+    data: {
+      content: "",
+      contentList: [{
+          id: 1,
+          title: "第一条"
+        },
+        {
+          id: 2,
+          title: "第二条"
+        },
+        {
+          id: 3,
+          title: "第三条"
+        },
+      ]
+    },
+    methods: {
+      addToDo: function () {
+        this.contentList.push({
+          id: this.contentList.length + 1,
+          title: this.content
+        })
+        this.content = ""
+      }
+    }
+  })
+</script>
+
+</html>
+<!-- 
+  1.submit.prevent 阻止了点击提交按钮后form组件的默认提交，可以做到点击提交按钮后，触发绑定的函数
+  2.is  is="todo-item"  与 <todo-item></todo-item>效果一样，但是能避免一些浏览器错误
+  3.bind 和 on 
+  4.本例子中组件的remove 点击删除按钮后触发删除按钮的事件，事件绑定在 li 上，由此可以删除内容。
+ -->
