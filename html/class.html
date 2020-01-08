@@ -21,12 +21,16 @@
         {{value.message}}
       </li>
     </ul>
+    <!-- 测试双向绑定 -->
+    <input type="text" v-model="twoWayMessage">
+    {{twoWayMessage}}
   </div>
 </body>
 <script>
   new Vue({
     el: '#app',
     data: {
+      twoWayMessage: "",
       isActive: true,
       ok: true,
       certainShow: true,
