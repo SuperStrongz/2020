@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="testComponent">
+    <test-input v-model="test"></test-input>
+    {{test}}
+
+    <input type="text" v-model="test1">
+    {{test1}}
+  </div>
+
+  <!-- 上面的一行字等于下面这个组件 -->
+  <!-- <test-input @input="test = $event.target.value" :value="test"></test-input> -->
+</body>
+<script>
+  Vue.component('test-input', {
+    props: ['value'],
+    template: `<input :value="value" @input="$emit('input', $event.target.value)">`
+  })
+  new Vue({
+    el: "#testComponent",
+    data: {
+      test: "",
+      test1: "11"
+    }
+  })
+</script>
+
+</html>
